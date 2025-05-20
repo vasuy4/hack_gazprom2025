@@ -2,6 +2,9 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 import uvicorn
 
+from views import router as views_router
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # startup
@@ -9,7 +12,9 @@ async def lifespan(app: FastAPI):
     # shutdown
 
 main_app = FastAPI(lifespan=lifespan)
-
+main_app.include_router(
+    views_router,
+)
 
 if __name__ == '__main__':
     uvicorn.run(
