@@ -1,12 +1,7 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter
 
-from utils.templates import templates
+from .main_page.main_page import router as main_page_router
+
 
 router = APIRouter()
-
-@router.get("/", name="home")
-def index_page(request: Request):
-    return templates.TemplateResponse(
-        request=request,
-        name="index.html"
-    )
+router.include_router(main_page_router)
